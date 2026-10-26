@@ -74,8 +74,15 @@ def rsi(closes: Sequence[float], period: int = 14) -> Series:
     for i in range(period, len(closes) - 1):
         avg_gain = (avg_gain * (period - 1) + gains[i]) / period
         avg_loss = (avg_loss * (period - 1) + losses[i]) / period
-        rs = avg_gain / avg_loss if avg_loss > 0 else 100.0
-        out[i + 1] = 100 - 100 / (1 + rs)
+        if avg_loss == 0:
+            # Textbook definition: with no average loss the index is exactly
+            # 100. Substituting a large relative strength instead gets close
+            # but never reaches it, which makes a saturated RSI compare
+            # unequal to 100 and quietly breaks threshold conditions.
+            out[i + 1] = 100.0
+        else:
+            rs = avg_gain / avg_loss
+            out[i + 1] = 100 - 100 / (1 + rs)
     return out
 
 
