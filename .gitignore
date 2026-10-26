@@ -1,0 +1,50 @@
+# Credentials and anything that could hold one.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.clob_creds*.json
+*credentials*.json
+*secrets*.json
+
+# Runtime state. These files describe a real account: balances, positions,
+# trade history. They are generated, never committed.
+state.json
+bot_state.json
+trade_log*.json
+paper_*.json
+*_state.json
+*_log.json
+data/live/
+data/runtime/
+
+# Logs
+*.log
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+ENV/
+
+# Tooling
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
